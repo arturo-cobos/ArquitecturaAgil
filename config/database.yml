@@ -19,7 +19,7 @@ default: &default
   encoding: unicode
   pool: 5
   user: administrador
-  password: Miso2016Arq
+  password:
   port: 5432
   host: localhost
 
