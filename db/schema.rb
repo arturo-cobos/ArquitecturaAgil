@@ -36,19 +36,6 @@ ActiveRecord::Schema.define(version: 20160310062304) do
 
   add_index "locations", ["pet_id"], name: "index_locations_on_pet_id", using: :btree
 
-  create_table "mascota", force: :cascade do |t|
-    t.string   "nombre"
-    t.string   "raza"
-    t.date     "fecha_nacimiento"
-    t.string   "caracteristicas"
-    t.string   "contacto"
-    t.integer  "usuario_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-  end
-
-  add_index "mascota", ["usuario_id"], name: "index_mascota_on_usuario_id", using: :btree
-
   create_table "pets", force: :cascade do |t|
     t.string   "name"
     t.string   "breed"
@@ -84,15 +71,6 @@ ActiveRecord::Schema.define(version: 20160310062304) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "usuarios", force: :cascade do |t|
-    t.string   "cedula"
-    t.string   "apellidos"
-    t.string   "nombre"
-    t.string   "correo"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "vital_signs", force: :cascade do |t|
     t.integer  "systolic_p"
     t.integer  "diastolic_p"
@@ -107,7 +85,6 @@ ActiveRecord::Schema.define(version: 20160310062304) do
 
   add_foreign_key "alerts", "pets"
   add_foreign_key "locations", "pets"
-  add_foreign_key "mascota", "usuarios"
   add_foreign_key "pets", "users"
   add_foreign_key "safe_zones", "pets"
   add_foreign_key "vital_signs", "pets"

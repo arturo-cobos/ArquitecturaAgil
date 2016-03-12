@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 
 module ArquitecturaAgil
   class Application < Rails::Application
+    config.autoload_paths += %W(#{config.root}/lib)
     config.active_record.raise_in_transactional_callbacks = true
     config.generators do |g|
       g.orm :mongoid
