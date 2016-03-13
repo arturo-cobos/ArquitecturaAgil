@@ -1,4 +1,33 @@
+# File: mongoid.yaml
+# Description: This file content information for the MongoDB Connections
+# @Autor: David Espinal Ruiz
+# @since: 12-03-2016
+# @version: 0.0.1
+# Last Modification: 13-02-2016 lf.mendivelso10
+
+# Development - For local Test
 development:
+  clients:
+    default:
+      database: arquitectura_agil_development
+      hosts:
+        - localhost:27017
+      options:
+
+# Test - For Cloud Test
+test:
+  clients:
+    default:
+      database: arquitectura_agil_test
+      hosts:
+        - localhost:27017
+      options:
+        read:
+          mode: primary
+        max_pool_size: 1
+
+# Production - For Cloud
+production:
   clients:
     default:
       database: <%= ENV['DBMONGODATABASE'] %>
@@ -7,14 +36,5 @@ development:
       options:
         user: <%= ENV['DBMONGOUSER'] %>
         password: <%= ENV['DBMONGOPASSWORD'] %>
+        max_pool_size: 50
   options:
-test:
-  clients:
-    default:
-      database: <%= ENV['DBMONGODATABASE'] %>
-      hosts:
-        - <%= ENV['DBMONGOHOST'] %>
-      options:
-        read:
-          mode: primary
-        max_pool_size: 1

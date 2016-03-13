@@ -7,7 +7,6 @@ class CreatePets < ActiveRecord::Migration
       t.string :characteristics
       t.string :contact
       t.references :user, index: true, foreign_key: true
-
       t.timestamps null: false
     end
   end

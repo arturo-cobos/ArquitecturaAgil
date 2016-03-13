@@ -34,4 +34,7 @@ gem 'bson_ext'
 gem 'aws-sdk', '~> 2'
 # Sidekiq and Redis
 gem 'sidekiq'
+gem 'sinatra', :require => nil
+# Cron Tab Scheduler
+gem 'rufus-scheduler'
 ##### End Dependencies #####

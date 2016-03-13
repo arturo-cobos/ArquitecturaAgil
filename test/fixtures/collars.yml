@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  collar_id: 1
+  pet_id: 1
+
+two:
+  collar_id: 1
+  pet_id: 1

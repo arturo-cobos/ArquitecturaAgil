@@ -10,11 +10,7 @@ class LocationController < ApplicationController
     
     def post
         # Receiver
-        loc = Locations.new(
-              longitude: params[:longitude],
-              latitude: params[:latitude],
-              datetime: Time.now
-          )
+        loc = Locations.new(longitude: params[:longitude],latitude: params[:latitude],datetime: Time.now)
           
         # Journaler
         Thread.new do

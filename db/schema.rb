@@ -71,6 +71,15 @@ ActiveRecord::Schema.define(version: 20160310062304) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "usuarios", force: :cascade do |t|
+    t.string   "cedula"
+    t.string   "apellidos"
+    t.string   "nombre"
+    t.string   "correo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "vital_signs", force: :cascade do |t|
     t.integer  "systolic_p"
     t.integer  "diastolic_p"
