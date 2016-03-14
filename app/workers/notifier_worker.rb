@@ -7,15 +7,8 @@ class NotifierWorker
 
   # 'perform' is a method predefined by Sidekiq:Worker to execute the logic need it in the job.
   def perform(data)
-
-    credentials = Aws::Credentials.new(ENV['AWS_ADMIN_ID'], ENV['AWS_ADMIN_SECRET'])
-    region = ENV['AWS_ADMIN_REGION']
-    puts data.to_s
-
-    ses = Aws::SES::Client.new(
-        region: region,
-        credentials: credentials
-    )
+    puts data
+    ses = Aws::SES::Client.new(region: ENV['AWS_ADMIN_REGION'], credentials: Aws::Credentials.new(ENV['AWS_ADMIN_ID'], ENV['AWS_ADMIN_SECRET']))
 
     poller = Aws::SQS::QueuePoller.new(ENV['AWS_SQS_URL'].to_s)
 
@@ -49,7 +42,7 @@ class NotifierWorker
               }
           }
       )
-      puts 'Email: ID -> '+resp.msg_id
+      logger.info('Message sended ->'+resp.message_id)
     end
   end
 end

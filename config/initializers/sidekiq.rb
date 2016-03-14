@@ -25,3 +25,8 @@ Sidekiq.configure_client do |config|
   config.redis = {url: 'redis://localhost:6379/12'}
   config.redis = ConnectionPool.new(size: 25, &redis_conn)
 end
+
+# Notification Worker
+if ENV['TYPE_INSTANCE'] == 'AlertWorker'
+  NotifierWorker.perform_async('Notifier Worker in Execution')
+end
