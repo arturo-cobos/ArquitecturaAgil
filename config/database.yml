@@ -4,16 +4,21 @@ development:
   pool: 5
   database: ArquitecturaAgil_development
   username: administrador
-  password: 
+  password:
   host: localhost
   port: 5432
   timeout: 5000
 
 test:
-  adapter: sqlite3
+  adapter: postgresql
+  encoding: utf8
   pool: 5
-  timeout: 5000
-  database: db/test.sqlite3
+  database: ArquitecturaAgil_test
+  username: administrador
+  password:
+  host: localhost
+  port: 5432
+  stimeout: 5000
 
 production:
   adapter: postgresql
