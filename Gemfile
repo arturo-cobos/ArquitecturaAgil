@@ -35,6 +35,6 @@ gem 'aws-sdk', '~> 2'
 # Sidekiq and Redis
 gem 'sidekiq'
 gem 'sinatra', :require => nil
-# Cron Tab Scheduler
-gem 'rufus-scheduler'
+# Server Config
+gem 'thin'
 ##### End Dependencies #####

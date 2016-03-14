@@ -4,4 +4,4 @@
 # 2016-03-09
 #
 bundle exec sidekiq -d -l ./log/sidekiq.log
-puma -p 3000 -e production -d
+thin start -p 3000 -P tmp/pids/thin.pid -l logs/thin.log -d -e production
