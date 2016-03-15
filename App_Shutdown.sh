@@ -5,5 +5,5 @@
 #
 sudo service postgresql start
 sudo service mongod start
-bundle exec sidekiq -d -l ./log/sidekiq.log
+RAILS_ENV=production bundle exec sidekiq -d -l log/sidekiq.log stop
 thin stop -P tmp/pids/thin.pid
