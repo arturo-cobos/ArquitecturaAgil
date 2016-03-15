@@ -39,7 +39,7 @@ class RecordController < ApplicationController
         longitude: record.longitud,
         pet_id: collar.pet_id
     )
-    location.save
+    #location.save
 
     #Replicator
     LocationAnalysisWorker.perform_async(location.pet_id,location.longitude,location.latitude)
