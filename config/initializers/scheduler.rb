@@ -4,24 +4,26 @@ require 'rufus-scheduler'
 if ENV['TYPE_INSTANCE'] == 'AlertWorker'
   scheduler = Rufus::Scheduler.new
   scheduler.every '12s' do
-    puts 'Notification Worker start'
+    logger.info('Notification Worker start')
     ses = Aws::SES::Client.new(region: ENV['AWS_ADMIN_REGION'], credentials: Aws::Credentials.new(ENV['AWS_ADMIN_ID'], ENV['AWS_ADMIN_SECRET']))
+    logger.info('SES Sesion ON')
     sqs = Aws::SQS::Client.new(region: ENV['AWS_ADMIN_REGION'], credentials: Aws::Credentials.new(ENV['AWS_ADMIN_ID'], ENV['AWS_ADMIN_SECRET']))
-
+    logger.info('SQS Sesion ON')
+    logger.info('Poll Messages')
     resp = sqs.receive_message(
         {
             queue_url: ENV['AWS_SQS_URL'].to_s, # required
             max_number_of_messages: 10,
         }
     )
+    logger.info('Messages polled')
+    logger.info('Evaluate all message')
     resp.messages.each do |msg|
-      puts 'Se verifica data del mensaje'
-      puts msg.body.to_s
-      puts 'Se consulta la información de la mascota'
+      logger.info('Find Pet in the Message')
       pet = Pet.find(Integer(Integer(msg.body)))
-      puts 'Se trae al propietario de la mascota'
+      logger.info('Get Owner Information')
       owner = pet.user
-      puts 'Se estructura el correo electronico a enviar'
+      logger.info('Prepare the Email')
       resp = ses.send_email(
           {
               source: "lf.mendivelso10@uniandes.edu.co", # required
@@ -48,7 +50,9 @@ if ENV['TYPE_INSTANCE'] == 'AlertWorker'
               }
           }
       )
+      logger.info('Message was sended to '+owner.email)
       sqs.delete_message(queue_url: ENV['AWS_SQS_URL'].to_s, receipt_handle: msg[:receipt_handle])
+      logger.info('Message Queue Item was deleted')
     end
     puts 'Notification Worker end'
   end
