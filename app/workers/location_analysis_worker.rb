@@ -4,18 +4,17 @@ class LocationAnalysisWorker
   def perform(pet_id,longitud,latitud)
     logger.info('Inicia Analisis de Localizacion')
     zones = SafeZone.where(pet_id: pet_id)
-    logger.info('Busca todas las zonas asociadas a la mascota -> '+zones.to_s)
-    notify = false
+    logger.info('Busca todas las zonas asociadas a la mascota -> '+zones.length)
+    notify = true
     logger.info('Inicia Ciclo de Zonas')
-    zones.each do |zone|
-      notify = true
-      # if (latitud > zone.coorY1 or latitud < zone.coorY2)
-      #   notify = true
-      # end
-      # if (longitud > zone.coorX1 or longitud < zone.coorX2)
-      #   notify = true
-      # end
-    end
+    # zones.each do |zone|
+    #   if (latitud > zone.coorY1 or latitud < zone.coorY2)
+    #     notify = true
+    #   end
+    #   if (longitud > zone.coorX1 or longitud < zone.coorX2)
+    #     notify = true
+    #   end
+    # end
     logger.info('Zona Resultado. Se tiene que notificar? R='+notify.to_s)
 
     if notify
