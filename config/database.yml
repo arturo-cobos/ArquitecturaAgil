@@ -4,7 +4,7 @@ development:
   pool: 5
   database: ArquitecturaAgil_development
   username: administrador
-  password: Miso2016Arq
+  password:
   host: localhost
   port: 5432
   timeout: 5000
@@ -15,7 +15,7 @@ test:
   pool: 5
   database: ArquitecturaAgil_test
   username: administrador
-  password: Miso2016Arq
+  password:
   host: localhost
   port: 5432
   stimeout: 5000
