@@ -4,7 +4,7 @@ class LocationAnalysisWorker
   def perform(pet_id,longitud,latitud)
     logger.info('Inicia Analisis de Localizacion')
     zones = SafeZone.where(pet_id: pet_id)
-    logger.info('Busca todas las zonas asociadas a la mascota -> '+zones.length)
+    logger.info('Busca todas las zonas asociadas a la mascota -> '+zones.size)
     notify = true
     logger.info('Inicia Ciclo de Zonas')
     # zones.each do |zone|
