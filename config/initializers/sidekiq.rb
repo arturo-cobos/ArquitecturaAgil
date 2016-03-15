@@ -9,6 +9,7 @@
 # Sidekiq Global Configuration
 #
 require 'sidekiq'
+require 'rufus-scheduler'
 
 # In-Memory datastore
 redis_conn = proc {
@@ -28,5 +29,8 @@ end
 
 # Notification Worker
 if ENV['TYPE_INSTANCE'] == 'AlertWorker'
-  NotifierWorker.perform_async('Notifier Worker in Execution')
+  scheduler = Rufus::Scheduler.new
+  scheduler.in '12s' do
+    NotifierWorker.perform_async('Notifier Worker in Execution')
+  end
 end

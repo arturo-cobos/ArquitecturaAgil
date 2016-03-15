@@ -37,4 +37,6 @@ gem 'sidekiq'
 gem 'sinatra', :require => nil
 # Server Config
 gem 'thin'
+# Job Scheduler
+gem 'rufus-scheduler'
 ##### End Dependencies #####

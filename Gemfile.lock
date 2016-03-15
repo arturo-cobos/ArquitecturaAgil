@@ -128,6 +128,7 @@ GEM
     rdoc (4.2.2)
       json (~> 1.4)
     redis (3.2.2)
+    rufus-scheduler (3.2.0)
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
@@ -175,6 +176,7 @@ DEPENDENCIES
   mongoid!
   pg (~> 0.15)
   rails (= 4.2.5.2)
+  rufus-scheduler
   sdoc (~> 0.4.0)
   sidekiq
   sinatra
