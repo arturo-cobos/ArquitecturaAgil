@@ -35,8 +35,6 @@ class LocationAnalysisWorker
         puts 'Falla Notificación'
         logger.info('Falla en SQS : '+msg.message_id.to_s)
       end
-
-
     end
   end
 end
