@@ -5,12 +5,12 @@ if ENV['TYPE_INSTANCE'] == 'AlertWorker'
 
   queue_time = '/var/www/html/queue_time.csv', 'w'
   File.open(queue_time, "a+") do |f|
-    f.write("inicio;fin;diferencia(ms);")
+    f.write("inicio;fin;diferencia(ms);\n")
   end
 
   scheduler = Rufus::Scheduler.new
   scheduler.every '12s' do
-    
+    start = Time.now
     Rails.logger.info('Notification Worker start')
     ses = Aws::SES::Client.new(region: ENV['AWS_ADMIN_REGION'], credentials: Aws::Credentials.new(ENV['AWS_SES2_ID'], ENV['AWS_SES2_SECRET']))
     Rails.logger.info('SES Sesion ON')
@@ -60,6 +60,17 @@ if ENV['TYPE_INSTANCE'] == 'AlertWorker'
       Rails.logger.info('Message was sended to '+owner.email)
       sqs.delete_message(queue_url: ENV['AWS_SQS_URL'].to_s, receipt_handle: msg[:receipt_handle])
       Rails.logger.info('Message Queue Item was deleted')
+      finish = Time.now
+      result = (finish - start) * 1000.0
+      File.open(queue_time, "a+") do |f|
+        f.write(start.to_datetime.to_s+';'+finish.to_datetime.to_s+';'+result.to_s+"\n")
+      end
+      puts 'Notification Worker end'
+    end
+    finish = Time.now
+    result = (finish - start) * 1000.0
+    File.open(queue_time, "a+") do |f|
+      f.write(start.to_datetime.to_s+';'+finish.to_datetime.to_s+';'+result.to_s+"\n")
     end
     puts 'Notification Worker end'
   end
