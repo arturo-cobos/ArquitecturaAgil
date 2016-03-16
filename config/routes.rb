@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   get '/record' => 'record#get'
   post '/record' => 'record#post'
+  post '/record/queue' => 'record#queue'
 
   mount Sidekiq::Web => '/sidekiq'
   # The priority is based upon order of creation: first created -> highest priority.

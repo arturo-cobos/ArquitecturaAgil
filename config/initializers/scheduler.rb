@@ -2,11 +2,17 @@
 require 'rufus-scheduler'
 # Notification Worker
 if ENV['TYPE_INSTANCE'] == 'AlertWorker'
+
+  queue_time = '/var/www/html/queue_time.csv', 'w'
+  File.open(queue_time, "a+") do |f|
+    f.write("inicio;fin;diferencia(ms);")
+  end
+
   scheduler = Rufus::Scheduler.new
   scheduler.every '12s' do
     
     Rails.logger.info('Notification Worker start')
-    ses = Aws::SES::Client.new(region: ENV['AWS_ADMIN_REGION'], credentials: Aws::Credentials.new(ENV['AWS_ADMIN_ID'], ENV['AWS_ADMIN_SECRET']))
+    ses = Aws::SES::Client.new(region: ENV['AWS_ADMIN_REGION'], credentials: Aws::Credentials.new(ENV['AWS_SES2_ID'], ENV['AWS_SES2_SECRET']))
     Rails.logger.info('SES Sesion ON')
     sqs = Aws::SQS::Client.new(region: ENV['AWS_ADMIN_REGION'], credentials: Aws::Credentials.new(ENV['AWS_ADMIN_ID'], ENV['AWS_ADMIN_SECRET']))
     Rails.logger.info('SQS Sesion ON')
