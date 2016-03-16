@@ -3,7 +3,7 @@ require 'rufus-scheduler'
 # Notification Worker
 if ENV['TYPE_INSTANCE'] == 'AlertWorker'
 
-  queue_time = '/var/www/html/queue_time.csv', 'w'
+  queue_time = '/var/www/html/queue_time.csv'
   File.open(queue_time, "a+") do |f|
     f.write("inicio;fin;diferencia(ms);\n")
   end
