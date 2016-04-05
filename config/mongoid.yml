@@ -9,18 +9,21 @@
 development:
   clients:
     default:
-      database: arquitectura_agil_development
+      database: <%= ENV['DBMONGODATABASE'] %>
       hosts:
-        - localhost:27017
+        - <%= ENV['DBMONGOHOST'] %>
       options:
+        user: <%= ENV['DBMONGOUSER'] %>
+        password: <%= ENV['DBMONGOPASSWORD'] %>
+        max_pool_size: 50
 
 # Test - For Cloud Test
 test:
   clients:
     default:
-      database: arquitectura_agil_test
+      database: <%= ENV['DBMONGODATABASE'] %>
       hosts:
-        - localhost:27017
+        - <%= ENV['DBMONGOHOST'] %>
       options:
         read:
           mode: primary

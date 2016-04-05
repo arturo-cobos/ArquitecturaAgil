@@ -5,7 +5,7 @@
 # @since: 103-03-2016
 # @version: 13-03-2016
 # Last Modification: 13-03-2015
-#
+# Comentarios para validar la colaboración
 class RecordController < ApplicationController
 
   # Get -> Return all record registered on the database
@@ -15,6 +15,8 @@ class RecordController < ApplicationController
 
   # Post method add a new Record in the system and user a LMAX architecture to computing.
   def post
+    t0_start_time = Time.now
+    
     #Receiver
     record = Record.new(
         collar_id: params[:collar_id],
@@ -41,8 +43,10 @@ class RecordController < ApplicationController
     )
     #location.save
 
+    t0_end_time = Time.now
+    t0_result = (t0_end_time - t0_start_time) * 1000.0
     #Replicator
-    LocationAnalysisWorker.perform_async(location.pet_id, location.longitude, location.latitude)
+    LocationAnalysisWorker.perform_async(location.pet_id, location.longitude, location.latitude, t0_result)
 
     #Request
     render json: record

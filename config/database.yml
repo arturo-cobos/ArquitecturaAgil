@@ -2,10 +2,10 @@ development:
   adapter: postgresql
   encoding: utf8
   pool: 5
-  database: ArquitecturaAgil_development
-  username: administrador
-  password:
-  host: localhost
+  database: <%= ENV['DBDATABASE'] %>
+  username: <%= ENV['DBUSERNAME'] %>
+  password: <%= ENV['DBPASSWORD'] %>
+  host: <%= ENV['DBHOST'] %>
   port: 5432
   timeout: 5000
 
@@ -13,10 +13,10 @@ test:
   adapter: postgresql
   encoding: utf8
   pool: 5
-  database: ArquitecturaAgil_test
-  username: administrador
-  password:
-  host: localhost
+  database: <%= ENV['DBDATABASE'] %>
+  username: <%= ENV['DBUSERNAME'] %>
+  password: <%= ENV['DBPASSWORD'] %>
+  host: <%= ENV['DBHOST'] %>
   port: 5432
   stimeout: 5000
 

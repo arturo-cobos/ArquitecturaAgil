@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160310062304) do
+ActiveRecord::Schema.define(version: 20160404061537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,15 @@ ActiveRecord::Schema.define(version: 20160310062304) do
   end
 
   add_index "safe_zones", ["pet_id"], name: "index_safe_zones_on_pet_id", using: :btree
+
+  create_table "statistics", force: :cascade do |t|
+    t.float    "t_zero"
+    t.float    "t_one"
+    t.float    "t_two"
+    t.float    "t_total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "document_id"
