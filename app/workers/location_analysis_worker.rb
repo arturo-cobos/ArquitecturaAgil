@@ -16,10 +16,10 @@ class LocationAnalysisWorker
     p 'validando zonas'
     #Recorrer todas las zonas y revisar si la mascota se encuentra en por lo menos una de ellas
     zones.each do |zone|
-      
+      p 'zone: ' + zone.to_s
       #calcular si se encuentra dentro del radio del punto central de la zona segura que se esta revisando
       is_safe = is_safe + (((longitud - zone.longitude)**2 + (latitud - zone.latitude)**2) < (zone.radius**2) ? 1 : 0)
-      
+      p 'Continua'
       #si encuentra que la mascota esta dentro de una zona segura sale del ciclo para evitar procesamiento innecesario
       break if is_safe > 0
     end
@@ -29,7 +29,7 @@ class LocationAnalysisWorker
     p 'Se debe notificar: ' + notify.to_s
     
     #/Validación de punto dentro de zona segura
-    logger.info('Zona Resultado. Se tiene que notificar? R='+notify.to_s)
+    logger.info('Zona Resultado. Se tiene que notificar? R=' + notify.to_s)
 
     if notify
       logger.info('Inicia Notificación en SQS')
@@ -40,16 +40,18 @@ class LocationAnalysisWorker
         t1_end_time = Time.now
         t1_result = (t1_end_time - t1_start_time) * 1000.0
         
-        logger.info('Almacenamiento de datos estadisticos : ')
-        statistics = Statistic.new(t_zero: t0_result, t_one: t1_result, t_two: t1_result, t_total: t0_result + t0_result + t1_result)
-        Thread.new  do
-          statistics.save
-        end
+        # logger.info('Almacenamiento de datos estadisticos : ')
+        # statistics = Statistic.new(t_zero: t0_result, t_one: t1_result, t_two: t1_result, t_total: t0_result + t0_result + t1_result)
+        # Thread.new  do
+        #   statistics.save
+        # end
         
         
+        logger.info("T0: " + t0_result.to_s + " - T1: " + t1_result.to_s)
+        Rails.logger.info("T0: " + t0_result.to_s + " - T1: " + t1_result.to_s)
         msg = sqs.send_message(
             queue_url: ENV['AWS_SQS_URL'].to_s,
-            message_body: pet_id.to_s + '@' + t0_result + ',' + t1_result
+            message_body: pet_id.to_s + '@' + t0_result.to_s + ',' + t1_result.to_s
         )
         logger.info('Mensaje Enviado : '+msg.message_id.to_s)
       rescue Aws::SQS::Errors::ServiceError

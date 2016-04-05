@@ -36,7 +36,11 @@ if ENV['TYPE_INSTANCE'] == 'AlertWorker'
       
       sqs_item = msg.body.split('@')
       p sqs_item[0]
-      p sqs_item[1].split(',')
+      
+      #Extracción de tiempos del proceso
+      tiempos = sqs_item[1].split(',')
+      t0_result = tiempos[0].to_f
+      t1_result = tiempos[1].to_f
       
       #pet = Pet.find(Integer(Integer(msg.body)))
       Rails.logger.info('Get Owner Information')
@@ -76,14 +80,16 @@ if ENV['TYPE_INSTANCE'] == 'AlertWorker'
       t2_result_item = (t2_end_time_item - t2_start_time_item) * 1000.0
       t2_result = t2_result + t2_result_item
       
-      Rails.logger.info("Tiempos: " + t0_result +  " - " + t1_result + " - " + t2_result)
+      #Extracción de tiempos
       
-      process_time = ProcessTime.new(t_zero: t0_result, t_one: t1_result, t_two: t2_result, t_total: t0_result + t1_result + t2_result)
+      
+      Rails.logger.info("Tiempos: " + t0_result.to_s +  " - " + t1_result.to_s + " - " + t2_result.to_s)
+      
+      #Almacenamiento de tiempos para calculos estadisticos de latencia
       statistics = Statistic.new(t_zero: t0_result, t_one: t1_result, t_two: t2_result, t_total: t0_result + t1_result + t2_result)
-      statistics.save
-      #Thread.new do
-      process_time.save
-      #end
+      Thread.new do
+        statistics.save
+      end
     end
     
     puts 'Notification Worker end'
