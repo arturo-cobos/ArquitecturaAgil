@@ -39,4 +39,5 @@ gem 'sinatra', :require => nil
 gem 'thin'
 # Job Scheduler
 gem 'rufus-scheduler'
+gem 'newrelic_rpm'
 ##### End Dependencies #####

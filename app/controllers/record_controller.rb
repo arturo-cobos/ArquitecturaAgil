@@ -61,4 +61,8 @@ class RecordController < ApplicationController
     )
     render json: id
   end
+  
+  def loader
+	  render :text => "loaderio-9b75a2d089aa19f44f518eea85f61bcd"
+  end
 end
