@@ -73,7 +73,7 @@ if ENV['TYPE_INSTANCE'] == 'AlertWorker'
       #    }
       #)
       #Rails.logger.info('Message was sended to '+owner.email)
-      #sqs.delete_message(queue_url: ENV['AWS_SQS_URL'].to_s, receipt_handle: msg[:receipt_handle])
+      sqs.delete_message(queue_url: ENV['AWS_SQS_URL'].to_s, receipt_handle: msg[:receipt_handle])
       #Rails.logger.info('Message Queue Item was deleted')
       
       t2_end_time_item = Time.now
