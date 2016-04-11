@@ -17,7 +17,7 @@ redis_conn = proc {
 # Server configuration por 250
 Sidekiq.configure_server do |config|
   config.redis = {url: 'redis://localhost:6379/12'}
-  config.redis = ConnectionPool.new(size: 250, &redis_conn)
+  config.redis = ConnectionPool.new(size: 25, &redis_conn)
 
 end
 # Client Configuration

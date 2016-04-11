@@ -1,9 +1,9 @@
-:concurrency: 100
+---
 :pidfile: tmp/pids/sidekiq.pid
 staging:
-  :concurrency: 100
+  :concurrency: 10
 production:
-  :concurrency: 250
+  :concurrency: 25
 :queues:
   - default
   - location
