@@ -1,0 +1,33 @@
+<%= form_for(@safe_zone) do |f| %>
+  <% if @safe_zone.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@safe_zone.errors.count, "error") %> prohibited this safe_zone from being saved:</h2>
+
+      <ul>
+      <% @safe_zone.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :pet_id %><br>
+    <%= f.text_field :pet_id %>
+  </div>
+  <div class="field">
+    <%= f.label :latitude %><br>
+    <%= f.text_field :latitude %>
+  </div>
+  <div class="field">
+    <%= f.label :longitude %><br>
+    <%= f.text_field :longitude %>
+  </div>
+  <div class="field">
+    <%= f.label :radium %><br>
+    <%= f.text_field :radium %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

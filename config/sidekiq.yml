@@ -1,0 +1,11 @@
+:concurrency: 100
+:pidfile: tmp/pids/sidekiq.pid
+staging:
+  :concurrency: 100
+production:
+  :concurrency: 250
+:queues:
+  - default
+  - location
+  - vital_signs
+  - patterns
