@@ -11,90 +11,113 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160404061537) do
+ActiveRecord::Schema.define(version: 20160412233846) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "alerts", force: :cascade do |t|
-    t.datetime "alert_date"
-    t.integer  "pet_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "collars", force: :cascade do |t|
+    t.integer  "pet_id",      limit: 4
+    t.string   "reference",   limit: 255
+    t.string   "description", limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
-  add_index "alerts", ["pet_id"], name: "index_alerts_on_pet_id", using: :btree
+  add_index "collars", ["pet_id"], name: "index_collars_on_pet_id", using: :btree
 
-  create_table "locations", force: :cascade do |t|
-    t.datetime "date"
-    t.float    "longitude"
-    t.float    "latitude"
-    t.integer  "pet_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "location_histories", force: :cascade do |t|
+    t.integer  "pet_id",      limit: 4
+    t.datetime "record_date"
+    t.float    "latitude",    limit: 24
+    t.float    "longitude",   limit: 24
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
-  add_index "locations", ["pet_id"], name: "index_locations_on_pet_id", using: :btree
+  add_index "location_histories", ["pet_id"], name: "index_location_histories_on_pet_id", using: :btree
+
+  create_table "owners", force: :cascade do |t|
+    t.string   "email",       limit: 255
+    t.string   "name",        limit: 255
+    t.string   "last_name",   limit: 255
+    t.string   "document_id", limit: 255
+    t.string   "phone",       limit: 255
+    t.string   "cellphone",   limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  create_table "pet_statuses", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.string   "description", limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  create_table "pet_types", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.string   "description", limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
 
   create_table "pets", force: :cascade do |t|
-    t.string   "name"
-    t.string   "breed"
-    t.date     "birthday"
-    t.string   "characteristics"
-    t.string   "contact"
-    t.integer  "user_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.integer  "pet_type_id",   limit: 4
+    t.integer  "pet_status_id", limit: 4
+    t.integer  "owner_id",      limit: 4
+    t.string   "name",          limit: 255
+    t.string   "gender",        limit: 255
+    t.string   "description",   limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
-  add_index "pets", ["user_id"], name: "index_pets_on_user_id", using: :btree
+  add_index "pets", ["owner_id"], name: "index_pets_on_owner_id", using: :btree
+  add_index "pets", ["pet_status_id"], name: "index_pets_on_pet_status_id", using: :btree
+  add_index "pets", ["pet_type_id"], name: "index_pets_on_pet_type_id", using: :btree
+
+  create_table "records", force: :cascade do |t|
+    t.integer  "collar_id",      limit: 4
+    t.float    "latitude",       limit: 24
+    t.float    "longitude",      limit: 24
+    t.integer  "breathing_freq", limit: 4
+    t.integer  "heart_freq",     limit: 4
+    t.integer  "systolic",       limit: 4
+    t.integer  "diastolic",      limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "records", ["collar_id"], name: "index_records_on_collar_id", using: :btree
 
   create_table "safe_zones", force: :cascade do |t|
-    t.float    "coorX1"
-    t.float    "coorX2"
-    t.float    "coorY1"
-    t.float    "coorY2"
-    t.integer  "pet_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "pet_id",     limit: 4
+    t.float    "latitude",   limit: 24
+    t.float    "longitude",  limit: 24
+    t.float    "radium",     limit: 24
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
   add_index "safe_zones", ["pet_id"], name: "index_safe_zones_on_pet_id", using: :btree
 
-  create_table "statistics", force: :cascade do |t|
-    t.float    "t_zero"
-    t.float    "t_one"
-    t.float    "t_two"
-    t.float    "t_total"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "vitalsign_histories", force: :cascade do |t|
+    t.integer  "pet_id",         limit: 4
+    t.datetime "record_date"
+    t.integer  "breathing_freq", limit: 4
+    t.integer  "heart_freq",     limit: 4
+    t.integer  "systolic",       limit: 4
+    t.integer  "diastolic",      limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string   "document_id"
-    t.string   "last_name"
-    t.string   "name"
-    t.string   "email"
-    t.string   "password"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
+  add_index "vitalsign_histories", ["pet_id"], name: "index_vitalsign_histories_on_pet_id", using: :btree
 
-  create_table "vital_signs", force: :cascade do |t|
-    t.integer  "systolic_p"
-    t.integer  "diastolic_p"
-    t.integer  "heart_rate"
-    t.integer  "breathing_rate"
-    t.integer  "pet_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-  end
-
-  add_index "vital_signs", ["pet_id"], name: "index_vital_signs_on_pet_id", using: :btree
-
-  add_foreign_key "alerts", "pets"
-  add_foreign_key "locations", "pets"
-  add_foreign_key "pets", "users"
+  add_foreign_key "collars", "pets"
+  add_foreign_key "location_histories", "pets"
+  add_foreign_key "pets", "owners"
+  add_foreign_key "pets", "pet_statuses"
+  add_foreign_key "pets", "pet_types"
+  add_foreign_key "records", "collars"
   add_foreign_key "safe_zones", "pets"
-  add_foreign_key "vital_signs", "pets"
+  add_foreign_key "vitalsign_histories", "pets"
 end

@@ -6,12 +6,11 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module ArquitecturaAgil
+module Workspace
   class Application < Rails::Application
-    config.autoload_paths += %W(#{config.root}/lib)
+    config.web_console.whiny_requests = false
+    #config.autoload_paths += %W(#{config.root}/lib)
+    config.eager_load_paths += ["#{config.root}/app/workers"]
     config.active_record.raise_in_transactional_callbacks = true
-    config.generators do |g|
-      g.orm :mongoid
-    end
   end
 end

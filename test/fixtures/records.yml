@@ -1,19 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  dog_collar: MyString
-  frec_cardiaca: 1
-  p_sistolica_integer: MyString
-  p_diastolica: 1
-  frec_respiratoria: 1
-  longitud: 1.5
-  latitud: 1.5
+  collar_id: 
+  latitude: 1.5
+  longitude: 1.5
+  breathing_freq: 1
+  heart_freq: 1
+  systolic: 1
+  diastolic: 1
 
 two:
-  dog_collar: MyString
-  frec_cardiaca: 1
-  p_sistolica_integer: MyString
-  p_diastolica: 1
-  frec_respiratoria: 1
-  longitud: 1.5
-  latitud: 1.5
+  collar_id: 
+  latitude: 1.5
+  longitude: 1.5
+  breathing_freq: 1
+  heart_freq: 1
+  systolic: 1
+  diastolic: 1

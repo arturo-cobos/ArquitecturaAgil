@@ -1,15 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  coorX1: 1.5
-  coorX2: 1.5
-  coorY1: 1.5
-  coorY2: 1.5
   pet_id: 
+  latitude: 1.5
+  longitude: 1.5
+  radium: 1.5
 
 two:
-  coorX1: 1.5
-  coorX2: 1.5
-  coorY1: 1.5
-  coorY2: 1.5
   pet_id: 
+  latitude: 1.5
+  longitude: 1.5
+  radium: 1.5
